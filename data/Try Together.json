@@ -1,12 +1,24 @@
 {
-    "id": 61079355,
+    "id": 57436521,
     "name": "Try Together",
-    "author": "Neigefeu",
-    "creators": [Neigefeu],
+    "author": "Different Publisher",
+    "creators": ["Solo_Creator"],
     "verifier": "Famousswedish",
-    "verification": "https://youtu.be/bzneu772yvw?si=P5Cd2-pqSvxUY4fK",
-    "percentToQualify": "60",
-    "password": "Free To Copy",
+    "verification": "https://www.youtube.com/watch?v=ISTl28wKSXc",
+    "percentToQualify": "100",
+    "password": "46290",
     "records": [
+        {
+            "user": "Sample_Victor_1",
+            "link": "https://www.youtube.com/watch?v=MgJeijBGKHU",
+            "percent": 100,
+            "hz": 360
+        },
+        {
+            "user": "Sample_Victor_2",
+            "link": "https://www.youtube.com/watch?v=MgJeijBGKHU",
+            "percent": 100,
+            "hz": 120
+        }
     ]
 }
