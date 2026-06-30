@@ -68,4 +68,4 @@ export function getScore(pos, percent, percentToQualify) {
     return Math.round(finalPoints);
   }
 }
-
+*/
