@@ -1,7 +1,9 @@
-name: Auto Add Approved Run
+name: merge main into production
+
 on:
-  repository_dispatch:
-    types: [approve_run]
+  push:
+    branches:
+      - main
 
 jobs:
   merge:
@@ -10,50 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Merge main into production
+        uses: devmasx/merge-branch@master
         with:
-          node-version: '24'
-
-      - name: Update JSON File
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            
-            const payload = context.payload.client_payload;
-            
-            // Gör om banans namn till små bokstäver och tar bort mellanslag
-            const levelName = payload.level.toLowerCase().trim().replace(/ /g, "_");
-            
-            // Letar i mappen 'data' efter filen
-            const filePath = path.join('data', `${levelName}.json`); 
-            
-            console.log(`FÖRSÖKER ÖPPNA FILEN: ${filePath}`);
-            
-            if (!fs.existsSync(filePath)) {
-              throw new Error(`Hittade inte filen "${filePath}". Kontrollera stavningen i Google Sheets!`);
-            }
-            
-            let levelData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-            
-            if (!levelData.records) {
-              levelData.records = [];
-            }
-            
-            levelData.records.push({
-              user: payload.player,
-              percent: payload.percent,
-              link: payload.video
-            });
-            
-            fs.writeFileSync(filePath, JSON.stringify(levelData, null, 2), 'utf8');
-
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Auto-added record for ${{ github.event.client_payload.player }} on ${{ github.event.client_payload.level }}"
-          git push
+          type: now
+          target_branch: production
+          github_token: ${{ secrets.GITHUB_TOKEN }}
